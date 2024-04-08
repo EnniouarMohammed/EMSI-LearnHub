@@ -1,6 +1,8 @@
 package ma.xproce.emsilearnhub.controller;
 
 import lombok.AllArgsConstructor;
+import ma.xproce.emsilearnhub.dto.AuthenticationResponse;
+import ma.xproce.emsilearnhub.dto.LoginRequest;
 import ma.xproce.emsilearnhub.dto.RegisterRequest;
 import ma.xproce.emsilearnhub.service.AuthService;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +26,10 @@ public class AuthController {
     public ResponseEntity<String> verifyAccount(@PathVariable String token) {
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activated Successfully", OK);
+    }
+
+    @PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+        return authService.login(loginRequest);
     }
 }
