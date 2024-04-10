@@ -17,14 +17,14 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @Entity
 @Builder
-public class DiscussionZone {
+public class Discussionzone {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String name;
     private String description;
     @OneToMany(fetch = LAZY)
-    private List<Post> posts;
+    public List<Post> posts;
     private Instant createdDate;
     @ManyToOne(fetch = LAZY)
     private User user;
