@@ -58,6 +58,11 @@
             <version>${org.mapstruct.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.marlonlom</groupId>
+            <artifactId>timeago</artifactId>
+            <version>4.0.3</version>
+        </dependency>
 
         <dependency>
             <groupId>com.mysql</groupId>
