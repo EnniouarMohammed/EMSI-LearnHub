@@ -16,5 +16,5 @@ public class DiscussionzoneDto {
     private String name;
     @NotBlank(message = "Description is required")
     private String description;
-    public Integer numberOfPosts;
+    private Integer numberOfPosts;
 }
