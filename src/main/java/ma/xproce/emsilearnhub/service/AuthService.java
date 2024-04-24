@@ -2,6 +2,7 @@ package ma.xproce.emsilearnhub.service;
 
 import ma.xproce.emsilearnhub.dto.AuthenticationResponse;
 import ma.xproce.emsilearnhub.dto.LoginRequest;
+import ma.xproce.emsilearnhub.dto.RefreshTokenRequest;
 import ma.xproce.emsilearnhub.dto.RegisterRequest;
 import ma.xproce.emsilearnhub.exceptions.SpringException;
 import ma.xproce.emsilearnhub.model.NotificationEmail;
@@ -102,5 +103,16 @@ public class AuthService {
     public boolean isLoggedIn() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
+    }
+
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
+        return AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenRequest.getRefreshToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(refreshTokenRequest.getUsername())
+                .build();
     }
 }
